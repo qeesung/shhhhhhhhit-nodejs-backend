@@ -4,6 +4,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const cors = require('cors')
 const toilets = [
     {
         "available": false,
@@ -24,7 +25,7 @@ const toilets = [
         "sex": "蹲的"
     }
 ];
-
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
@@ -33,12 +34,12 @@ app.get('/toilets', function (req, res) {
 });
 
 app.put('/toilets/:toilet_id', function (req, res) {
-    let toilet_id = req.params.toilet_id;
-    if(toilet_id != 1 && toilet_id != 2)
+    let toilet_id = req.params.toilet_id -1 ;
+    if(toilet_id != 0 && toilet_id != 1)
         return;
     let toilet = toilets[toilet_id];
     let body = req.body;
-    toilet.available = !!body.available;
+    toilet.available = body.available;
     toilet.updated_at = new Date()+"";
     toilets[toilet_id] = toilet;
     res.json(toilet);
