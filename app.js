@@ -44,7 +44,7 @@ app.put('/toilets/:toilet_id', function (req, res) {
     res.json(toilet);
 });
 
-var server = app.listen(3000, function () {
+var server = app.listen(5000, function () {
     var host = server.address().address;
     var port = server.address().port;
     console.log('Example app listening at http://%s:%s', host, port);
